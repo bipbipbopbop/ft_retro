@@ -9,7 +9,7 @@ INC_PATH := includes
 
 
 # Compiler flags
-CPPFLAGS :=	-Wall -Wextra -Werror
+CPPFLAGS :=	-Wall -Wextra -Werror -g3
 CPPFLAGS += -iquote$(INC_PATH)
 LDFLAGS :=	-lncurses
 
@@ -26,6 +26,7 @@ SRCS_NAMES :=	main.cpp
 SRCS_NAMES +=	Renderer.cpp					\
 				AEntity.cpp						\
 				ASpaceShip.cpp					\
+				EntityList.cpp					\
 
 
 SRCS := $(addprefix $(SRC_PATH)/,$(SRCS_NAMES))
@@ -37,6 +38,7 @@ INCS :=	Renderer.hpp			\
 		IEntity.hpp				\
 		AEntity.hpp				\
 		ASpaceShip.hpp			\
+		EntityList.hpp			\
 
 
 # THE NORM IS REAL
