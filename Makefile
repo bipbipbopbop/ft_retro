@@ -26,6 +26,11 @@ SRCS_NAMES :=	main.cpp
 SRCS_NAMES +=	Renderer.cpp					\
 				AEntity.cpp						\
 				ASpaceShip.cpp					\
+				Meteorite.cpp					\
+				Rocket.cpp						\
+				Player.cpp						\
+				Invader.cpp
+
 
 
 SRCS := $(addprefix $(SRC_PATH)/,$(SRCS_NAMES))
@@ -37,6 +42,10 @@ INCS :=	Renderer.hpp			\
 		IEntity.hpp				\
 		AEntity.hpp				\
 		ASpaceShip.hpp			\
+		Meteorite.hpp			\
+		Rocket.hpp				\
+		Player.hpp				\
+		Invader.hpp
 
 
 # THE NORM IS REAL

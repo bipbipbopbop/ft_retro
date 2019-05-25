@@ -13,11 +13,6 @@ public:
 	ASpaceShip  &operator=(ASpaceShip const &rhs);
 
 	void	Shoot();
-
-private:
-	unsigned int	_attackDamage;
-	unsigned int	_speed;
-
 };
 
 #endif // ASPACESHIP_HPP

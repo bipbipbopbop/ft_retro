@@ -1,17 +1,25 @@
 #include <iostream>
+
 #include "Renderer.hpp"
-#include "ASpaceShip.hpp"
+#include "Meteorite.hpp"
+#include "Player.hpp"
+#include "Rocket.hpp"
+#include "Invader.hpp"
 
 int		main(void)
 {
 //	std::cout << "hello world\n";
 	Renderer	r;
 //unsigned int hp, unsigned int xPos, unsigned int yPos, char form, int color, bool direction, unsigned int attackDamage, unsigned int speed
-	ASpaceShip		ent1(10, 10, 10, '>', 13, false, 2, 1);
-	ASpaceShip		ent2(10, 1, 1, 'E', 13, false, 3, 1);
 
-	r.placeEntity(&ent1);
-	r.placeEntity(&ent2);
+	Rocket rocket(10, 10, true);
+	Meteorite meteorite(4, 4);
+	Player player;
+	Invader invader(7, 0);
+	r.placeEntity(&rocket);
+	r.placeEntity(&meteorite);
+	r.placeEntity(&player);
+	r.placeEntity(&invader);
 	while (1)
 	{
 //		r.handleEvent();

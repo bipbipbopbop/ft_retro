@@ -4,8 +4,8 @@
 AEntity::AEntity()
 {}
 
-AEntity::AEntity(unsigned int hp, unsigned int xPos, unsigned int yPos, char form, int color, bool direction)
-	: _hp(hp), _xPos(xPos), _yPos(yPos), _form(form), _color(color), _direction(direction)
+AEntity::AEntity(unsigned int hp, unsigned int xPos, unsigned int yPos, char form, int color, bool direction, unsigned int attackDamage, unsigned int speed)
+	: _hp(hp), _xPos(xPos), _yPos(yPos), _form(form), _color(color), _direction(direction), _attackDamage(attackDamage), _speed(speed)
 {}
 
 AEntity::AEntity(AEntity const &src)
@@ -25,6 +25,8 @@ AEntity  &AEntity::operator=(AEntity const &rhs)
 	this->_form = rhs._form;
 	this->_color = rhs._color;
 	this->_direction = rhs._direction;
+	this->_attackDamage = rhs._attackDamage;
+	this->_speed = rhs._speed;
 
 	return *this;
 }
