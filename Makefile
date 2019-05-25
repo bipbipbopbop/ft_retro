@@ -72,7 +72,7 @@ ifeq ($(DETAILED), 1)
 	@tput dl; tput el1; tput cub 100; $(PRINT) "$(GREY)Creating object files: $(GREEN)done!$(RESET)"
 endif
 	@$(PRINT) "\n$(GREY)Compiling $(RESET)$(NAME)$(GREY): $(RESET)"
-	$(CC) $(OBJS) -o $(NAME) $(LDFLAGS)
+	@$(CC) $(OBJS) -o $(NAME) $(LDFLAGS)
 	@$(PRINT) "$(GREEN)done!$(RESET)\n"
 
 
