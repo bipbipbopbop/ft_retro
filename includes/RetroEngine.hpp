@@ -17,12 +17,16 @@ public:
 
 	RetroEngine  &operator=(RetroEngine const &rhs);
 
-	KeyEvent	retrieveKeyEvent();
+	KeyEvent	retrieveKeyEvent() const;
+	void		handleKeyEvent(KeyEvent key);
+
 	void		renderFrame();
 	void		updateEntities();
 	void		addEntity(AEntity *entity);
 
 private:
+	void		_updatePlayerPos(int x);
+
 	Renderer		_renderer;
 	EntityList		_entityList;
 	Player			_player;

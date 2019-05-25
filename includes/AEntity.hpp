@@ -21,9 +21,10 @@ public:
 	char			getForm() const;
 	int				getColor() const;
 	bool			getDirection() const;
+	unsigned int	getAttackDamage() const;
+	unsigned int	getSpeed() const;
 
 private:
-	virtual void	_move(Coord &newCoord);//implementation defined movement
 
 	unsigned int	_hp;
 	unsigned int	_xPos;
@@ -33,6 +34,9 @@ private:
 	bool			_direction;//true == left, false == right
 	unsigned int	_attackDamage;
 	unsigned int	_speed;
+
+protected:
+	virtual void	_move(Coord &newCoord);//implementation defined movement
 };
 
 #endif // AENTITY_HPP

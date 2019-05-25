@@ -72,9 +72,19 @@ bool			AEntity::getDirection() const
 	return this->_direction;
 }
 
-//implementation defined movement
+unsigned int	AEntity::getAttackDamage() const
+{
+	return this->_attackDamage;
+}
+
+unsigned int	AEntity::getSpeed() const
+{
+	return this->_speed;
+}
+
+//implementation defined movement & update values
 void	AEntity::_move(Coord &newCoord)
 {
-	(void)newCoord;
-	//does nothing
+	this->_xPos = newCoord.x;
+	this->_yPos = newCoord.y;
 }

@@ -14,7 +14,7 @@ public:
 	Renderer(Renderer const &src);
 	Renderer  &operator=(Renderer const &rhs);
 
-	KeyEvent	handleEvent() const;
+	KeyEvent	retrieveEvent() const;
 	void		render() const;
 	void	replaceEntity(AEntity *entity);
 	//TODO :replaceEntity pour entity avec plusieurs char

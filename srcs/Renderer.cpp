@@ -33,7 +33,7 @@ Renderer  &Renderer::operator=(Renderer const &rhs)
 	return *this;
 }
 
-KeyEvent	Renderer::handleEvent() const
+KeyEvent	Renderer::retrieveEvent() const
 {
 	KeyEvent	key = (KeyEvent)getch();
 	(void)key;
@@ -67,6 +67,7 @@ void	Renderer::replaceEntity(AEntity *entity)
 
 void	Renderer::render() const
 {
+	//clearok(this->_window, true);//it do not work ?
 	refresh();
 }
 

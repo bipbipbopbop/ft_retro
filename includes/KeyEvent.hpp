@@ -5,6 +5,7 @@
 
 enum KeyEvent
 {
+	noValue = ERR,
 	keyDown = KEY_DOWN,
 	keyUp = KEY_UP,
 	keyLeft = KEY_LEFT,

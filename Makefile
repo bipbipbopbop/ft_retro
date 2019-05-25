@@ -30,7 +30,8 @@ SRCS_NAMES :=	main.cpp						\
 				Player.cpp						\
 				EntityList.cpp					\
 				Invader.cpp						\
-				RetroEngine.cpp
+				RetroEngine.cpp					\
+				TimeLapse.cpp
 
 
 SRCS := $(addprefix $(SRC_PATH)/,$(SRCS_NAMES))
@@ -49,7 +50,8 @@ INCS :=	Renderer.hpp			\
 		Invader.hpp				\
 		Coord.hpp				\
 		KeyEvent.hpp			\
-		RetroEngine.hpp
+		RetroEngine.hpp			\
+		TimeLapse.hpp
 
 
 # THE NORM IS REAL

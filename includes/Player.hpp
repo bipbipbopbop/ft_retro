@@ -10,7 +10,9 @@ public:
 	Player(Player const &src);
 	virtual ~Player();
 
-	Player  &operator=(Player const &rhs);
+	Player		&operator=(Player const &rhs);
+
+	void		moveVertical(int y);
 };
 
 #endif // ASPACESHIP_HPP

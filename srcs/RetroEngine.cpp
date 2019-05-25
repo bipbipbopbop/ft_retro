@@ -25,9 +25,28 @@ RetroEngine  &RetroEngine::operator=(RetroEngine const &rhs)
 }
 
 
-KeyEvent	RetroEngine::retrieveKeyEvent()
+KeyEvent	RetroEngine::retrieveKeyEvent() const
 {
-	return this->_renderer.handleEvent();
+	return this->_renderer.retrieveEvent();
+}
+
+void		RetroEngine::handleKeyEvent(KeyEvent key)
+{
+	switch (key)
+	{
+		case noValue:
+		break;
+		case keyDown:
+		this->_updatePlayerPos(1);
+		break;
+		case keyUp:
+		this->_updatePlayerPos(-1);
+		break;
+		case keySpace:
+		this->_entityList.push(this->_player.shoot());
+		break;
+		default:;
+	}
 }
 
 void		RetroEngine::renderFrame()
@@ -36,6 +55,7 @@ void		RetroEngine::renderFrame()
 	{
 		this->_renderer.replaceEntity(*it);
 	}
+	this->_renderer.replaceEntity(&this->_player);
 	this->_renderer.render();
 }
 
@@ -69,4 +89,17 @@ void		RetroEngine::updateEntities()
 void		RetroEngine::addEntity(AEntity *entity)
 {
 	this->_entityList.push(entity);
+}
+
+void		RetroEngine::_updatePlayerPos(int y)
+{
+	int		currentY = this->_player.getYPos();
+
+	currentY += y * this->_player.getSpeed();
+	if (currentY < 0)
+		currentY = 0;
+	else if (currentY > (int)this->_renderer.getLineNb())
+		currentY = this->_renderer.getLineNb();
+
+	this->_player.moveVertical(currentY);
 }

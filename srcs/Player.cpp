@@ -1,7 +1,7 @@
 #include "Player.hpp"
 
 Player::Player()
-	: ASpaceShip(100, 0, 5, '>', 12, false, 10, 0)
+	: ASpaceShip(100, 0, 5, '>', 12, false, 10, 1)
 {}
 
 Player::Player(Player const &src)
@@ -17,4 +17,11 @@ Player  &Player::operator=(Player const &rhs)
 {
 	this->ASpaceShip::operator=(rhs);
 	return *this;
+}
+
+void		Player::moveVertical(int y)
+{
+	Coord		newCoord = { this->getXPos(), y };
+
+	this->_move(newCoord);
 }

@@ -8,7 +8,7 @@ class IEntity
 public:
 	virtual ~IEntity() {}
 
-	virtual Coord	move() = 0;//return true if the entity is still in the screen
+	virtual Coord	move() = 0;//return the new position
 	virtual void	takeDamage(int damage) = 0;
 };
 
