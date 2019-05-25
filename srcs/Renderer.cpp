@@ -1,10 +1,13 @@
+#include <string>
+#include <iostream>
 #include "Renderer.hpp"
 
 
 	Renderer::Renderer()
-		: _column(120), _line(40), _window(initscr())
+		: _column(120), _line(40), _cursorX(0), _cursorY(0), _window(initscr())
 	{
 		noecho();
+		curs_set(false);
 		keypad(this->_window, true);
 	}
 
@@ -52,12 +55,17 @@
 
 	}
 
-/*	void	Renderer::placeEntity(AEntity *entity)
+	void	Renderer::placeEntity(AEntity *entity)
 	{
-		std::string	entityChar(entity->getChar());
+		std::string	entityChar(1, entity->getForm());
 
-		mvprintw(entity->getX(), entity->getY(), entityChar.c_str());
-	}*/
+//		std::cerr << "entity x = " << entity->getXPos() << "& y = " << entity->getYPos() << std::endl;
+//		std::cerr << "cursor = " << this->_cursorX << ", " << this->_cursorY;
+
+		mvwprintw(this->_window, (int)entity->getXPos() - (int)this->_cursorX, (int)entity->getYPos() - (int)this->_cursorY, entityChar.c_str());
+		this->_cursorX = entity->getXPos();
+		this->_cursorY = entity->getYPos();
+	}
 	//TODO :placeEntity pour entity avec plusieurs char
 
 

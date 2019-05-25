@@ -2,8 +2,7 @@
 # define RENDERER_HPP
 
 # include <ncurses.h>
-# include <string>
-# include <iostream>
+# include "AEntity.hpp"
 
 class Renderer
 {
@@ -23,7 +22,7 @@ public:
 
 	KeyEvent	handleEvent() const;
 	void		render() const;
-//	void	placeEntity(AEntity *entity);
+	void	placeEntity(AEntity *entity);
 	//TODO :placeEntity pour entity avec plusieurs char
 
 
@@ -35,6 +34,8 @@ private:
 
 	unsigned int		_column;
 	unsigned int		_line;
+	unsigned int		_cursorX;
+	unsigned int		_cursorY;
 	WINDOW				*_window;
 };
 

@@ -21,9 +21,12 @@ MKDIR := mkdir -p
 PRINT := printf
 NORM := norminette
 
-SRCS_NAMES := main.cpp						\
+SRCS_NAMES :=	main.cpp
 
-SRCS_NAMES += Renderer.cpp
+SRCS_NAMES +=	Renderer.cpp					\
+				AEntity.cpp						\
+				ASpaceShip.cpp					\
+
 
 SRCS := $(addprefix $(SRC_PATH)/,$(SRCS_NAMES))
 OBJS := $(addprefix $(OBJ_PATH)/,$(SRCS_NAMES:.cpp=.o))
@@ -31,6 +34,10 @@ OBJS := $(addprefix $(OBJ_PATH)/,$(SRCS_NAMES:.cpp=.o))
 OBJ_DIRS := $(sort $(dir $(OBJS)))
 
 INCS :=	Renderer.hpp			\
+		IEntity.hpp				\
+		AEntity.hpp				\
+		ASpaceShip.hpp			\
+
 
 # THE NORM IS REAL
 NORM_LOG := norm.log
