@@ -9,7 +9,7 @@ INC_PATH := includes
 
 
 # Compiler flags
-CPPFLAGS :=	-Wall -Wextra -Werror
+CPPFLAGS :=	-Wall -Wextra -Werror -g3
 CPPFLAGS += -iquote$(INC_PATH)
 LDFLAGS :=	-lncurses
 
@@ -29,8 +29,8 @@ SRCS_NAMES +=	Renderer.cpp					\
 				Meteorite.cpp					\
 				Rocket.cpp						\
 				Player.cpp						\
+				EntityList.cpp					\
 				Invader.cpp
-
 
 
 SRCS := $(addprefix $(SRC_PATH)/,$(SRCS_NAMES))
@@ -45,6 +45,7 @@ INCS :=	Renderer.hpp			\
 		Meteorite.hpp			\
 		Rocket.hpp				\
 		Player.hpp				\
+		EntityList.hpp			\
 		Invader.hpp
 
 
