@@ -1,10 +1,9 @@
 #include <string>
-#include <iostream>
 #include "Renderer.hpp"
 
 
 Renderer::Renderer()
-: _column(120), _line(40), _cursorX(0), _cursorY(0), _window(initscr())
+: _column(120), _line(40), _window(initscr())
 {
 	noecho();
 	curs_set(false);
@@ -13,6 +12,7 @@ Renderer::Renderer()
 
 Renderer::Renderer(Renderer const &src)
 {
+	// SHOULD NOT BE USED
 	*this = src;
 }
 
@@ -23,7 +23,8 @@ Renderer::~Renderer()
 }
 
 Renderer  &Renderer::operator=(Renderer const &rhs)
-{// SHOULD NOT BE USED
+{
+	// SHOULD NOT BE USED
 	this->_column = rhs._column;
 	this->_line = rhs._line;
 	delwin(this->_window);
@@ -32,12 +33,10 @@ Renderer  &Renderer::operator=(Renderer const &rhs)
 	return *this;
 }
 
-Renderer::KeyEvent	Renderer::handleEvent() const
+KeyEvent	Renderer::handleEvent() const
 {
-	Renderer::KeyEvent	key = (KeyEvent)getch();
-
-
-	std::cout << "you type the key: " << (int)key << std::endl;
+	KeyEvent	key = (KeyEvent)getch();
+	(void)key;
 	/*		switch (character)
 			{
 			case KEY_DOWN:
@@ -48,23 +47,20 @@ Renderer::KeyEvent	Renderer::handleEvent() const
 	//			x--;
 	case KEY_RIGHT:
 	//			x++;
-	//			case ECHAP
+	case ' ':
+	//
+//	case ECHAP
 	}*/
 
 	return key;
 
 }
 
-void	Renderer::placeEntity(AEntity *entity)
+void	Renderer::replaceEntity(AEntity *entity)
 {
 	std::string	entityChar(1, entity->getForm());
 
-	//		std::cerr << "entity x = " << entity->getXPos() << "& y = " << entity->getYPos() << std::endl;
-	//		std::cerr << "cursor = " << this->_cursorX << ", " << this->_cursorY;
-
 	mvwprintw(this->_window, (int)entity->getYPos(), (int)entity->getXPos(), entityChar.c_str());
-	this->_cursorX = entity->getXPos();
-	this->_cursorY = entity->getYPos();
 }
 //TODO :placeEntity pour entity avec plusieurs char
 
@@ -72,4 +68,14 @@ void	Renderer::placeEntity(AEntity *entity)
 void	Renderer::render() const
 {
 	refresh();
+}
+
+unsigned int		Renderer::getLineNb() const
+{
+	return this->_line;
+}
+
+unsigned int		Renderer::getColumnNb() const
+{
+	return this->_column;
 }

@@ -41,6 +41,7 @@ public:
 	size_t		size() const;
 	void		push(AEntity *elem);
 	AEntity		*pop(int i);
+	AEntity		*pop(iterator &elem);
 
 private:
 	size_t		_nodeNb;

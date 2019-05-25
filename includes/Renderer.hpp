@@ -2,40 +2,31 @@
 # define RENDERER_HPP
 
 # include <ncurses.h>
+# include "KeyEvent.hpp"
 # include "AEntity.hpp"
 
 class Renderer
 {
 public:
 
-	enum KeyEvent
-	{
-		keyDown = KEY_DOWN,
-		keyUp = KEY_UP,
-		keyLeft = KEY_LEFT,
-		keyRight = KEY_RIGHT
-		//ECHAP
-	};
-
 	Renderer();
 	~Renderer();
-
-	KeyEvent	handleEvent() const;
-	void		render() const;
-	void	placeEntity(AEntity *entity);
-	//TODO :placeEntity pour entity avec plusieurs char
-
-
-
-
-private:
 	Renderer(Renderer const &src);
 	Renderer  &operator=(Renderer const &rhs);
 
+	KeyEvent	handleEvent() const;
+	void		render() const;
+	void	replaceEntity(AEntity *entity);
+	//TODO :replaceEntity pour entity avec plusieurs char
+
+	unsigned int		getLineNb() const;
+	unsigned int		getColumnNb() const;
+
+
+private:
+
 	unsigned int		_column;
 	unsigned int		_line;
-	unsigned int		_cursorX;
-	unsigned int		_cursorY;
 	WINDOW				*_window;
 };
 

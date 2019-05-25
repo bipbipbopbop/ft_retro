@@ -1,12 +1,14 @@
 #ifndef IENTITY_HPP
 # define IENTITY_HPP
 
+# include "Coord.hpp"
+
 class IEntity
 {
 public:
-	virtual ~IEntity();
+	virtual ~IEntity() {}
 
-	virtual void	move(int x, int y) = 0;
+	virtual Coord	move() = 0;//return true if the entity is still in the screen
 	virtual void	takeDamage(int damage) = 0;
 };
 

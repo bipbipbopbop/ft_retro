@@ -21,16 +21,16 @@ MKDIR := mkdir -p
 PRINT := printf
 NORM := norminette
 
-SRCS_NAMES :=	main.cpp
-
-SRCS_NAMES +=	Renderer.cpp					\
+SRCS_NAMES :=	main.cpp						\
+				Renderer.cpp					\
 				AEntity.cpp						\
 				ASpaceShip.cpp					\
 				Meteorite.cpp					\
 				Rocket.cpp						\
 				Player.cpp						\
 				EntityList.cpp					\
-				Invader.cpp
+				Invader.cpp						\
+				RetroEngine.cpp
 
 
 SRCS := $(addprefix $(SRC_PATH)/,$(SRCS_NAMES))
@@ -46,7 +46,10 @@ INCS :=	Renderer.hpp			\
 		Rocket.hpp				\
 		Player.hpp				\
 		EntityList.hpp			\
-		Invader.hpp
+		Invader.hpp				\
+		Coord.hpp				\
+		KeyEvent.hpp			\
+		RetroEngine.hpp
 
 
 # THE NORM IS REAL
@@ -69,7 +72,7 @@ ifeq ($(DETAILED), 1)
 	@tput dl; tput el1; tput cub 100; $(PRINT) "$(GREY)Creating object files: $(GREEN)done!$(RESET)"
 endif
 	@$(PRINT) "\n$(GREY)Compiling $(RESET)$(NAME)$(GREY): $(RESET)"
-	@$(CC) $(OBJS) -o $(NAME) $(LDFLAGS)
+	$(CC) $(OBJS) -o $(NAME) $(LDFLAGS)
 	@$(PRINT) "$(GREEN)done!$(RESET)\n"
 
 

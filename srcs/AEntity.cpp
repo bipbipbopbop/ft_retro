@@ -31,6 +31,15 @@ AEntity  &AEntity::operator=(AEntity const &rhs)
 	return *this;
 }
 
+Coord	AEntity::move()
+{
+	Coord	result = { this->getXPos(), this->getYPos() };
+	result.x += (this->getDirection() ? -1 : 1) * this->_speed;
+
+	this->_move(result);
+
+	return result;
+}
 
 void	AEntity::takeDamage(int damage)
 {
@@ -63,9 +72,9 @@ bool			AEntity::getDirection() const
 	return this->_direction;
 }
 
-
-void	AEntity::_move(unsigned int x, unsigned int y)
+//implementation defined movement
+void	AEntity::_move(Coord &newCoord)
 {
-	this->_xPos = x;
-	this->_yPos = y;
+	(void)newCoord;
+	//does nothing
 }

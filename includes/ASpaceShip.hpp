@@ -2,6 +2,7 @@
 # define ASPACESHIP_HPP
 
 # include "AEntity.hpp"
+# include "Rocket.hpp"
 
 class ASpaceShip : public AEntity
 {
@@ -12,7 +13,7 @@ public:
 
 	ASpaceShip  &operator=(ASpaceShip const &rhs);
 
-	void	Shoot();
+	Rocket		*Shoot();
 };
 
 #endif // ASPACESHIP_HPP

@@ -117,25 +117,58 @@ void			EntityList::push(AEntity *elem)
 	this->_nodeNb++;
 }
 
-AEntity			*EntityList::pop(int i)
+AEntity			*EntityList::pop(int index)
 {
 	EntityList::iterator	it = this->begin();
-	AEntity					*result = this->operator[](i);
+	AEntity					*result = this->operator[](index);
 
-	if (result == NULL)
+	if (result == NULL)//no elem in list
 		return NULL;
 
-	while (i > 0)
+	this->_nodeNb--;
+	if (index == 0)//first elem
 	{
 		++it;
-		--i;
+		delete this->_entityList;
+		this->_entityList = it.current;
+		return result;
 	}
 
+	while (index > 1)
+	{
+		++it;
+		--index;
+	}
+
+	it.current->next = it.current->next->next;
 	++it;
-	delete this->_entityList;
-	this->_entityList = it.current;
+	delete it.current;
+	return result;
+}
+
+AEntity			*EntityList::pop(EntityList::iterator &elem)
+{
+	EntityList::iterator	it = this->begin();
+	AEntity					*result = *elem;
+
+	if (result == NULL)//no elem in list
+		return NULL;
 
 	this->_nodeNb--;
+	if (elem == it)//first elem
+	{
+		++it;
+		delete this->_entityList;
+		this->_entityList = it.current;
+		return result;
+	}
+
+	EntityList::iterator	prevIt;
+	while (it != elem)
+		prevIt = it++;
+
+	prevIt.current->next = prevIt.current->next->next;
+	delete it.current;
 	return result;
 }
 

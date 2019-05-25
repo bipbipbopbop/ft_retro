@@ -1,7 +1,9 @@
 #ifndef AENTITY_HPP
 # define AENTITY_HPP
 
-class AEntity
+# include "IEntity.hpp"
+
+class AEntity : public IEntity
 {
 public:
 	AEntity();
@@ -11,6 +13,7 @@ public:
 
 	AEntity  &operator=(AEntity const &rhs);
 
+	virtual Coord	move();
 	virtual void	takeDamage(int damage);
 
 	unsigned int	getXPos() const;
@@ -20,7 +23,7 @@ public:
 	bool			getDirection() const;
 
 private:
-	void	_move(unsigned int x, unsigned int y);
+	virtual void	_move(Coord &newCoord);//implementation defined movement
 
 	unsigned int	_hp;
 	unsigned int	_xPos;
