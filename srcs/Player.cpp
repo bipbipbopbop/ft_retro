@@ -25,3 +25,10 @@ void		Player::moveVertical(int y)
 
 	this->_move(newCoord);
 }
+
+void		Player::moveHorizontal(int x)
+{
+	Coord		newCoord = { x, this->getYPos() };
+
+	this->_move(newCoord);
+}

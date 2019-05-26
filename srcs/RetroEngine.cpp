@@ -35,16 +35,22 @@ void		RetroEngine::handleKeyEvent(KeyEvent key)
 	switch (key)
 	{
 		case noValue:
-		break;
+			break;
 		case keyDown:
-		this->_updatePlayerPos(1);
-		break;
+			this->_updatePlayerPos(FT_DOWN);
+			break;
 		case keyUp:
-		this->_updatePlayerPos(-1);
-		break;
+			this->_updatePlayerPos(FT_UP);
+			break;
 		case keySpace:
-		this->_entityList.push(this->_player.shoot());
-		break;
+			this->_entityList.push(this->_player.shoot());
+			break;
+		case keyLeft:
+			this->_updatePlayerPos(FT_LEFT);
+			break;
+		case keyRight:
+			this->_updatePlayerPos(FT_RIGHT);
+			break;
 		default:;
 	}
 }
@@ -67,7 +73,7 @@ void		RetroEngine::updateEntities()
 		Coord	newCoord = (*it)->move();
 
 		if (newCoord.x < 0 || newCoord.x > (int)this->_renderer.getColumnNb()
-			|| newCoord.y < 0 || newCoord.y > (int)this->_renderer.getLineNb())
+				|| newCoord.y < 0 || newCoord.y > (int)this->_renderer.getLineNb())
 		{
 			delete this->_entityList.pop(it);
 		}
@@ -78,8 +84,8 @@ void		RetroEngine::updateEntities()
 	{
 		AEntity *tmp;
 		(void)tmp;
-//		if ((tmp = this->_entityList[i]->checkCollision(i)) != NULL)
-//			this->_entityList[i]->handleCollision(tmp);
+		//		if ((tmp = this->_entityList[i]->checkCollision(i)) != NULL)
+		//			this->_entityList[i]->handleCollision(tmp);
 	}
 
 	// pop new entities
@@ -91,15 +97,26 @@ void		RetroEngine::addEntity(AEntity *entity)
 	this->_entityList.push(entity);
 }
 
-void		RetroEngine::_updatePlayerPos(int y)
+void		RetroEngine::_updatePlayerPos(int direction)
 {
 	int		currentY = this->_player.getYPos();
+	int		currentX = this->_player.getXPos();
+	
 
-	currentY += y * this->_player.getSpeed();
-	if (currentY < 0)
-		currentY = 0;
-	else if (currentY > (int)this->_renderer.getLineNb())
-		currentY = this->_renderer.getLineNb();
-
-	this->_player.moveVertical(currentY);
+	if (FT_UP == direction && (currentY - 1) > 0)
+	{
+		this->_player.moveVertical(currentY - 1);
+	}
+	if (FT_DOWN == direction && (currentY + 1) < FT_LINES)
+	{
+		this->_player.moveVertical(currentY + 1);
+	}
+	if (FT_LEFT == direction && (currentX - 1) >= 0)
+	{
+		this->_player.moveHorizontal(currentX - 1);
+	}
+	if (FT_RIGHT == direction && (currentX + 1) < FT_COLUMNS)
+	{
+		this->_player.moveHorizontal(currentX + 1);
+	}
 }

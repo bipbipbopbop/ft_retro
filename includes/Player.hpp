@@ -13,6 +13,7 @@ public:
 	Player		&operator=(Player const &rhs);
 
 	void		moveVertical(int y);
+	void		moveHorizontal(int x);
 };
 
 #endif // ASPACESHIP_HPP
