@@ -30,10 +30,16 @@ public:
 	void		addEntity(AEntity *entity);
 
 private:
-	void		_updatePlayerPos(int x);
+	void		_updatePlayerPos(KeyEvent direction);
+	void		_checkCollisionPlayer(EntityList::iterator &entity);
+	void		_checkCollisionEntities(EntityList::iterator &entity);
+
+	void		_createNewEntities();
 	void		_pushMeteorite();
 	void		_pushInvader();
 	void		_pushBomber();
+	void		_pushBoss();
+
 	void		_makeShoot();
 	void		_putHp();
 	void		_putScore();

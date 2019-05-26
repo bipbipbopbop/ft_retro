@@ -8,21 +8,15 @@
 int		main(void)
 {
 	RetroEngine	ft_retro;
+	KeyEvent	key;
+	TimeLapse	frameTimer;
 	bool		isEntitiesUpdated = false;
 	bool		isKeyRetrieve = false;
-	KeyEvent	key;
-	TimeLapse	timer;
 
-	Rocket rocket(10, 10, true);
-	Meteorite meteorite(4, 4);
-	Invader invader(7, 0);
-
-	std::string t;
-	t = "Time= ";
-
-	timer.start();
+	frameTimer.start();
 	while (true)
 	{
+		// Update entities pos, do actions, etc
 		if (!isEntitiesUpdated)
 		{
 			ft_retro.updateEntities();
@@ -39,15 +33,14 @@ int		main(void)
 		else
 			flushinp();
 
-		//is it time to refresh ?
-		timer.update();
-		if (timer.checkTime(FT_TIMELAPSE))
+		frameTimer.update();
+		if (frameTimer.checkTime(FT_TIMELAPSE))
 		{
 			//update player position (so only the last presed key is tooken),
 			//display all entities and render frame
 			ft_retro.handleKeyEvent(key);
 			ft_retro.renderFrame();
-			mvwprintw(stdscr, FT_LINES, 30, (t + std::to_string((int)timer.getTotalTime()) + "s").c_str());
+			mvwprintw(stdscr, FT_LINES, 30, ("Time= " + std::to_string((int)frameTimer.getTotalTime()) + "s").c_str());
 			isEntitiesUpdated = false;
 			isKeyRetrieve = false;
 		}

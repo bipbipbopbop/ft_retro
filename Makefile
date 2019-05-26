@@ -9,7 +9,7 @@ INC_PATH := includes
 
 
 # Compiler flags
-CPPFLAGS :=	-Wall -Wextra -Werror -g3
+CPPFLAGS :=	-Wall -Wextra -Werror
 CPPFLAGS += -iquote$(INC_PATH)
 LDFLAGS :=	-lncurses
 

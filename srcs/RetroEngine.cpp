@@ -33,33 +33,18 @@ KeyEvent	RetroEngine::retrieveKeyEvent() const
 
 void		RetroEngine::handleKeyEvent(KeyEvent key)
 {
-	switch (key)
-	{
-		case noValue:
-			break;
-		case keyDown:
-			this->_updatePlayerPos(FT_DOWN);
-			break;
-		case keyUp:
-			this->_updatePlayerPos(FT_UP);
-			break;
-		case keySpace:
-			this->_entityList.push(this->_player.shoot());
-			break;
-		case keyLeft:
-			this->_updatePlayerPos(FT_LEFT);
-			break;
-		case keyRight:
-			this->_updatePlayerPos(FT_RIGHT);
-			break;
-		default:;
-	}
+	if (key == keySpace)
+		this->_entityList.push(this->_player.shoot());
+	else
+		this->_updatePlayerPos(key);
 }
 
 void		RetroEngine::renderFrame()
 {
+	// Wipe all the frame
 	clear();
 
+	// Replace all entities on the frame
 	for (EntityList::iterator it = this->_entityList.begin(); it != this->_entityList.end(); ++it)
 	{
 		if (!(*it)->isBoss())
@@ -72,17 +57,77 @@ void		RetroEngine::renderFrame()
 		}
 	}
 	this->_renderer.replaceEntity(&this->_player);
+	this->_putHp();
+	this->_putScore();
 	this->_renderer.render();
+}
+
+void		RetroEngine::_checkCollisionEntities(EntityList::iterator &entity)
+{
+	EntityList::iterator it = this->_entityList.begin();
+	while (it != this->_entityList.end())
+	{
+		if ((*entity) != (*it))
+		{
+			// Check position of the two Entities
+			if ((*entity)->getXPos() == (*it)->getXPos() && (*entity)->getYPos() == (*it)->getYPos())
+			{
+				(*entity)->takeDamage((*it)->getAttackDamage());
+				(*it)->takeDamage((*entity)->getAttackDamage());
+				this->_player.setScore(20);
+				this->_renderer.putScoreObject((*entity)->getXPos(), (*entity)->getYPos() - 1, 20);
+			}
+
+			// Is it dead ?
+			if ((*it)->getHp() == 0)
+			{
+				EntityList::iterator tmp = it++;
+				delete this->_entityList.pop(tmp);
+				continue;
+			}
+		}
+		it++;
+	}
+}
+
+void		RetroEngine::_checkCollisionPlayer(EntityList::iterator &entity)
+{
+	if (this->_player.getXPos() == (*entity)->getXPos() && this->_player.getYPos() == (*entity)->getYPos())
+	{
+		(*entity)->takeDamage(this->_player.getAttackDamage());
+		this->_player.takeDamage((*entity)->getAttackDamage());
+		this->_player.setScore(-(*entity)->getAttackDamage());
+		this->_renderer.putScoreObject(this->_player.getXPos(), this->_player.getYPos() - 1, -(*entity)->getAttackDamage());
+		if (this->_player.getHp() == 0)
+		{
+			//this->_gameOver();
+		}
+	}
+}
+
+void		RetroEngine::_createNewEntities()
+{
+	// Create New entities (timer are implemented in each functions)
+
+	this->_pushMeteorite();
+
+	if (rand() % 2)
+		this->_pushInvader();
+	else
+		this->_pushBomber();
+
+	this->_pushBoss();
 }
 
 void		RetroEngine::updateEntities()
 {
 	EntityList::iterator it = this->_entityList.begin();
-	// update position (move left or right, depending on _direction)
 	while (it != this->_entityList.end())
 	{
+		// Update Entity pos
 		Coord	newCoord = (*it)->move();
 
+		// Out-Of-Bound Check
 		if (newCoord.x < 0 || newCoord.x > (int)this->_renderer.getColumnNb()
 				|| newCoord.y < 0 || newCoord.y > (int)this->_renderer.getLineNb())
 		{
@@ -90,35 +135,13 @@ void		RetroEngine::updateEntities()
 			delete this->_entityList.pop(tmp);
 	 		continue;
 		}
-		EntityList::iterator it2 = this->_entityList.begin();
-		while (it2 != this->_entityList.end())
-		{
-			if ((*it) != (*it2))
-			{
-				if ((*it)->getXPos() == (*it2)->getXPos() && (*it)->getYPos() == (*it2)->getYPos())
-				{
-					(*it)->takeDamage((*it2)->getAttackDamage());
-					(*it2)->takeDamage((*it)->getAttackDamage());
-					this->_player.setScore(this->_player.getAttackDamage());
-					this->_renderer.putScoreObject((*it)->getXPos(), (*it)->getYPos() - 1, 20);
-				}
 
-				if ((*it2)->getHp() == 0)
-				{
-					EntityList::iterator tmp = it2++;
-					delete this->_entityList.pop(tmp);
-					continue;
-				}
-			}
-			it2++;
-		}
-		if (this->_player.getXPos() == (*it)->getXPos() && this->_player.getYPos() == (*it)->getYPos())
-		{
-			this->_player.takeDamage((*it)->getAttackDamage());
-			this->_player.setScore(-(*it)->getAttackDamage());
-			(*it)->takeDamage(this->_player.getAttackDamage());
-			this->_renderer.putScoreObject(this->_player.getXPos(), this->_player.getYPos() - 1, -(*it)->getAttackDamage());
-		}
+		// Collision Check between all entities
+		// & Collision check with Player
+		this->_checkCollisionEntities(it);
+		this->_checkCollisionPlayer(it);
+
+		// Is it dead ?
 		if ((*it)->getHp() == 0)
 		{
 			EntityList::iterator tmp = it++;
@@ -127,14 +150,12 @@ void		RetroEngine::updateEntities()
 		}
 		it++;
 	}
+
+	// All Entities will shoot now
 	this->_makeShoot();
-	this->_pushMeteorite();
-	if (rand() % 2)
-		this->_pushInvader();
-	else
-		this->_pushBomber();
-	this->_putHp();
-	this->_putScore();
+
+	// Create new Entities
+	this->_createNewEntities();
 }
 
 void		RetroEngine::_makeShoot()
@@ -143,11 +164,8 @@ void		RetroEngine::_makeShoot()
 	{
 		AEntity *tmp = (*it)->shoot();
 		if (tmp != NULL)
-		{
 			this->_entityList.push(tmp);
-		}
 	}
-
 }
 
 void		RetroEngine::_putHp()
@@ -171,44 +189,45 @@ void		RetroEngine::_pushMeteorite()
 	static TimeLapse timer;
 	int y;
 
-	y = rand() % 18 + 3;
+	y = rand() % 16 + 5;// rand value between 5 and 20
 	timer.update();
 
 	if (timer.checkTime(FT_TIMELAPSE * 20.42))
-	{
 		this->_entityList.push(new Meteorite(this->_renderer.getColumnNb(), y));
-	}
 }
 
 void		RetroEngine::_pushInvader()
 {
 	static TimeLapse invaderTimer;
-	static TimeLapse bossTimer;
-	static double	bossDelay = 60.;
-	int y = rand() % 18 + 3;
+	int y = rand() % 16 + 5;// rand value between 5 and 20
 
 	invaderTimer.update();
-	bossTimer.update();
+	if (invaderTimer.checkTime(FT_TIMELAPSE * 47.73))
+		this->_entityList.push(new Invader(this->_renderer.getColumnNb(), y));
+}
 
+void		RetroEngine::_pushBoss()
+{
+	static TimeLapse bossTimer;
+	static double	bossDelay = 45.;
+
+	bossTimer.update();
 	if (bossTimer.checkTime(bossDelay))
 	{
 		this->_entityList.push(new Boss(1000, FT_COLUMNS, FT_LINES / 2));
 		if (bossDelay > 10.)
 			bossDelay -= 5.;
 	}
-	else if (invaderTimer.checkTime(FT_TIMELAPSE * 47.73))
-		this->_entityList.push(new Invader(this->_renderer.getColumnNb(), y));
 }
 
 void		RetroEngine::_pushBomber()
 {
-	static TimeLapse timer;
+	static TimeLapse bomberTimer;
 	int y;
 
 	y = rand() % 5;
-	timer.update();
-
-	if (timer.checkTime(FT_TIMELAPSE * 47.73))
+	bomberTimer.update();
+	if (bomberTimer.checkTime(FT_TIMELAPSE * 47.73))
 	{
 		this->_entityList.push(new Bomber(this->_renderer.getColumnNb(), y));
 	}
@@ -219,26 +238,17 @@ void		RetroEngine::addEntity(AEntity *entity)
 	this->_entityList.push(entity);
 }
 
-void		RetroEngine::_updatePlayerPos(int direction)
+void		RetroEngine::_updatePlayerPos(KeyEvent direction)
 {
 	int		currentY = this->_player.getYPos();
 	int		currentX = this->_player.getXPos();
 
-
-	if (FT_UP == direction && (currentY - 1) > 0)
-	{
+	if (keyUp == direction && (currentY - 1) > 0)
 		this->_player.moveVertical(currentY - 1);
-	}
-	if (FT_DOWN == direction && (currentY + 1) < FT_LINES)
-	{
+	else if (keyDown == direction && (currentY + 1) < FT_LINES)
 		this->_player.moveVertical(currentY + 1);
-	}
-	if (FT_LEFT == direction && (currentX - 1) >= 0)
-	{
+	else if (keyLeft == direction && (currentX - 1) >= 0)
 		this->_player.moveHorizontal(currentX - 1);
-	}
-	if (FT_RIGHT == direction && (currentX + 1) < FT_COLUMNS)
-	{
+	else if (keyRight == direction && (currentX + 1) < FT_COLUMNS)
 		this->_player.moveHorizontal(currentX + 1);
-	}
 }
