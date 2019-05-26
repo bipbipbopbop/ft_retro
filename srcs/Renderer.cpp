@@ -2,12 +2,13 @@
 #include "Renderer.hpp"
 
 
-Renderer::Renderer()
-: _column(120), _line(40), _window(initscr())
+	Renderer::Renderer()
+	: _column(120), _line(40), _window(initscr())
 {
 	noecho();
 	curs_set(false);
-	keypad(this->_window, true);
+	nodelay(stdscr, true);
+	keypad(stdscr, true);
 }
 
 Renderer::Renderer(Renderer const &src)
@@ -49,7 +50,7 @@ KeyEvent	Renderer::retrieveEvent() const
 	//			x++;
 	case ' ':
 	//
-//	case ECHAP
+	//	case ECHAP
 	}*/
 
 	return key;
