@@ -19,8 +19,10 @@ int		main(void)
 		// Update entities pos, do actions, etc
 		if (!isEntitiesUpdated)
 		{
-			ft_retro.updateEntities();
-			isEntitiesUpdated = true;
+			if (ft_retro.updateEntities())
+				isEntitiesUpdated = true;
+			else
+				break;
 		}
 
 		//getEvent for player
@@ -45,6 +47,14 @@ int		main(void)
 			isKeyRetrieve = false;
 		}
 	}
+
+	mvwprintw(stdscr, FT_LINES / 2 - 1, FT_COLUMNS/2 - 23, "   ___   _   __  __ ___    _____   _____ ___ ");
+	mvwprintw(stdscr, FT_LINES / 2, FT_COLUMNS/2 - 23, "  / __| /_\\ |  \\/  | __|  / _ \\ \\ / / __| _ \\");
+	mvwprintw(stdscr, FT_LINES / 2 + 1, FT_COLUMNS/2 - 23, " | (_ |/ _ \\| |\\/| | _|  | (_) \\ V /| _||   /");
+	mvwprintw(stdscr, FT_LINES / 2 + 2, FT_COLUMNS/2 - 23, "  \\___/_/ \\_\\_|  |_|___|  \\___/ \\_/ |___|_|_\\");
+
+	nodelay(stdscr, false);
+	while (getch() != 'q');
 
 	return 0;
 }

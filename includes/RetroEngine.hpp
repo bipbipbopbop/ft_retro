@@ -26,12 +26,12 @@ public:
 	void		handleKeyEvent(KeyEvent key);
 
 	void		renderFrame();
-	void		updateEntities();
+	bool		updateEntities();
 	void		addEntity(AEntity *entity);
 
 private:
 	void		_updatePlayerPos(KeyEvent direction);
-	void		_checkCollisionPlayer(EntityList::iterator &entity);
+	bool		_checkCollisionPlayer(EntityList::iterator &entity);
 	void		_checkCollisionEntities(EntityList::iterator &entity);
 
 	void		_createNewEntities();
@@ -43,6 +43,8 @@ private:
 	void		_makeShoot();
 	void		_putHp();
 	void		_putScore();
+
+	void		_gameOver();
 
 	Renderer		_renderer;
 	EntityList		_entityList;

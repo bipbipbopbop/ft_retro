@@ -15,7 +15,7 @@ public:
 	public:
 		BossBody(unsigned int hp, unsigned int xPos, unsigned int yPos, char form);
 		BossBody(BossBody const &src);
-		~BossBody();
+		virtual ~BossBody();
 
 		BossBody  &operator=(BossBody const &rhs);
 
@@ -30,7 +30,7 @@ public:
 	public:
 		BossCanon(unsigned int hp, unsigned int xPos, unsigned int yPos);
 		BossCanon(BossCanon const &src);
-		~BossCanon();
+		virtual ~BossCanon();
 
 		BossCanon  &operator=(BossCanon const &rhs);
 

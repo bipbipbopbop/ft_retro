@@ -90,7 +90,7 @@ void		RetroEngine::_checkCollisionEntities(EntityList::iterator &entity)
 	}
 }
 
-void		RetroEngine::_checkCollisionPlayer(EntityList::iterator &entity)
+bool		RetroEngine::_checkCollisionPlayer(EntityList::iterator &entity)
 {
 	if (this->_player.getXPos() == (*entity)->getXPos() && this->_player.getYPos() == (*entity)->getYPos())
 	{
@@ -98,11 +98,9 @@ void		RetroEngine::_checkCollisionPlayer(EntityList::iterator &entity)
 		this->_player.takeDamage((*entity)->getAttackDamage());
 		this->_player.setScore(-(*entity)->getAttackDamage());
 		this->_renderer.putScoreObject(this->_player.getXPos(), this->_player.getYPos() - 1, -(*entity)->getAttackDamage());
-		if (this->_player.getHp() == 0)
-		{
-			//this->_gameOver();
-		}
+		return this->_player.getHp() > 0;
 	}
+	return true;
 }
 
 void		RetroEngine::_createNewEntities()
@@ -119,7 +117,7 @@ void		RetroEngine::_createNewEntities()
 	this->_pushBoss();
 }
 
-void		RetroEngine::updateEntities()
+bool		RetroEngine::updateEntities()
 {
 	EntityList::iterator it = this->_entityList.begin();
 	while (it != this->_entityList.end())
@@ -139,7 +137,8 @@ void		RetroEngine::updateEntities()
 		// Collision Check between all entities
 		// & Collision check with Player
 		this->_checkCollisionEntities(it);
-		this->_checkCollisionPlayer(it);
+		if (!(this->_checkCollisionPlayer(it)))
+			return false;// Player is dead!
 
 		// Is it dead ?
 		if ((*it)->getHp() == 0)
@@ -156,6 +155,8 @@ void		RetroEngine::updateEntities()
 
 	// Create new Entities
 	this->_createNewEntities();
+
+	return true;//Everything is ok
 }
 
 void		RetroEngine::_makeShoot()

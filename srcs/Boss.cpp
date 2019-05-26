@@ -56,7 +56,7 @@ AEntity		*Boss::BossCanon::shoot()
 {
 	static int i = rand();
 
-	if (i++ % 8)
+	if (i++ % 7)
 		return this->ASpaceShip::shoot();
 	return NULL;
 }
