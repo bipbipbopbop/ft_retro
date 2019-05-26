@@ -34,7 +34,7 @@ void	Invader::_move(Coord &newCoord)
 	static int fram = 0;
 	unsigned int direction_vertical = rand() % 2;
 
-	if (fram % 5 == 0)
+	if (fram % 3 == 0)
 		newCoord.x += (this->getDirection() ? -1 : 1) * this->getSpeed();
 		
 	if (fram++ % 10 != 5)

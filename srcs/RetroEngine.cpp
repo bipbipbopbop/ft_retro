@@ -122,7 +122,10 @@ void		RetroEngine::updateEntities()
 	}
 	this->_makeShoot();
 	this->_pushMeteorite();
-	this->_pushInvader();
+	if (rand() % 2)
+		this->_pushInvader();
+	else
+		this->_pushBomber();
 	this->_putHp();
 	this->_putScore();
 }
@@ -181,6 +184,20 @@ void		RetroEngine::_pushInvader()
 	if (timer.checkTime(FT_TIMELAPSE * 47.73))
 	{
 		this->_entityList.push(new Invader(this->_renderer.getColumnNb(), y));
+	}
+}
+
+void		RetroEngine::_pushBomber()
+{
+	static TimeLapse timer;
+	int y;
+
+	y = rand() % 5;
+	timer.update();
+
+	if (timer.checkTime(FT_TIMELAPSE * 47.73))
+	{
+		this->_entityList.push(new Bomber(this->_renderer.getColumnNb(), y));
 	}
 }
 

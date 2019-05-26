@@ -31,6 +31,8 @@ SRCS_NAMES :=	main.cpp						\
 				EntityList.cpp					\
 				Invader.cpp						\
 				RetroEngine.cpp					\
+				Bomber.cpp						\
+				Bomb.cpp						\
 				TimeLapse.cpp
 
 
@@ -52,6 +54,8 @@ INCS :=	Renderer.hpp			\
 		KeyEvent.hpp			\
 		RetroEngine.hpp			\
 		TimeLapse.hpp			\
+		Bomber.hpp				\
+		Bomb.hpp						\
 		ft_retro.hpp
 
 
