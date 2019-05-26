@@ -104,16 +104,14 @@ void			EntityList::push(AEntity *elem)
 	newNode.elem = elem;
 	newNode.next = NULL;
 
-	if (it == this->end())
-	{
+	if (it == this->end() || this->_nodeNb == 0)
 		this->_entityList = new EntityList::EntityNode(newNode);
-		this->_nodeNb++;
-		return ;
+	else
+	{
+		for (unsigned int i = 0; i < this->_nodeNb - 1; ++i)
+			++it;
+		it.current->next = new EntityList::EntityNode(newNode);
 	}
-
-	for (unsigned int i = 0; i < this->_nodeNb - 1; ++i)
-		++it;
-	it.current->next = new EntityList::EntityNode(newNode);
 	this->_nodeNb++;
 }
 
@@ -168,7 +166,7 @@ AEntity			*EntityList::pop(EntityList::iterator &elem)
 		prevIt = it++;
 
 	prevIt.current->next = prevIt.current->next->next;
-	delete it.current;
+	delete elem.current;
 	return result;
 }
 

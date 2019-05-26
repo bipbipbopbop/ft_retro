@@ -1,9 +1,6 @@
 #ifndef TIMELAPSE_HPP
 # define TIMELAPSE_HPP
 
-// Number of second we want to wait per lapse
-#define TIME_LAPSE	0.1
-
 class TimeLapse
 {
 public:

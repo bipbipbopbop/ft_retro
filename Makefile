@@ -51,7 +51,8 @@ INCS :=	Renderer.hpp			\
 		Coord.hpp				\
 		KeyEvent.hpp			\
 		RetroEngine.hpp			\
-		TimeLapse.hpp
+		TimeLapse.hpp			\
+		ft_retro.hpp
 
 
 # THE NORM IS REAL

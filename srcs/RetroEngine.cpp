@@ -57,6 +57,8 @@ void		RetroEngine::handleKeyEvent(KeyEvent key)
 
 void		RetroEngine::renderFrame()
 {
+	clear();
+
 	for (EntityList::iterator it = this->_entityList.begin(); it != this->_entityList.end(); ++it)
 	{
 		this->_renderer.replaceEntity(*it);
@@ -67,25 +69,30 @@ void		RetroEngine::renderFrame()
 
 void		RetroEngine::updateEntities()
 {
+	EntityList::iterator it = this->_entityList.begin();
 	// update position (move left or right, depending on _direction)
-	for (EntityList::iterator it = this->_entityList.begin(); it != this->_entityList.end(); ++it)
+	while (it != this->_entityList.end())
 	{
 		Coord	newCoord = (*it)->move();
 
 		if (newCoord.x < 0 || newCoord.x > (int)this->_renderer.getColumnNb()
 				|| newCoord.y < 0 || newCoord.y > (int)this->_renderer.getLineNb())
 		{
-			delete this->_entityList.pop(it);
+			EntityList::iterator	tmp = it++;
+			delete this->_entityList.pop(tmp);
 		}
-	}
-
-	// is their any colision ?
-	for (size_t i = 0; i < this->_entityList.size(); ++i)
-	{
-		AEntity *tmp;
-		(void)tmp;
-		//		if ((tmp = this->_entityList[i]->checkCollision(i)) != NULL)
-		//			this->_entityList[i]->handleCollision(tmp);
+		else
+		{
+			// is their any colision ?
+			for (EntityList::iterator it2 = this->_entityList.begin(); it2 != it; ++it2)
+			{
+				//		if ((*it)->checkCollision(*it2))
+				//			(*it)->handleCollision(*it2);
+			}
+			//if ((*it)->checkCollision(&this->_player))
+			//	(*it)->handleCollision(&this->_player);
+			++it;
+		}
 	}
 
 	// pop new entities

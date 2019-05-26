@@ -1,7 +1,7 @@
 #ifndef RETROENGINE_HPP
 # define RETROENGINE_HPP
 
-#include "ft_retro.h"
+#include "ft_retro.hpp"
 #include "Renderer.hpp"
 #include "Meteorite.hpp"
 #include "Player.hpp"

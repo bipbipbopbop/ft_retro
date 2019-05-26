@@ -1,9 +1,9 @@
 #include <string>
 #include "Renderer.hpp"
+#include "ft_retro.hpp"
 
-
-	Renderer::Renderer()
-	: _column(120), _line(40), _window(initscr())
+Renderer::Renderer()
+	: _column(FT_COLUMNS), _line(FT_LINES), _window(initscr())
 {
 	noecho();
 	curs_set(false);
