@@ -15,9 +15,6 @@ public:
 	virtual Coord		move();
 	virtual AEntity		*shoot();
 
-protected:
-	virtual void	_move(Coord &newCoord);//implementation defined movement
-
 private:
 	int				_randShoot;
 };

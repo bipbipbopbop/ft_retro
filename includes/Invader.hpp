@@ -12,10 +12,7 @@ public:
 
 	Invader				&operator=(Invader const &rhs);
 	virtual Coord		move();
-	virtual AEntity				*shoot();
-
-protected:
-	virtual void	_move(Coord &newCoord);//implementation defined movement
+	virtual AEntity		*shoot();
 
 private:
 	int				_randShoot;

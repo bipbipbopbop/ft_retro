@@ -27,7 +27,8 @@ Coord	Boss::BossBody::move()
 	if (!(this->_count % 10))
 		newCoord.x -= 1;
 
-	this->AEntity::_move(newCoord);
+	this->_xPos = newCoord.x;
+	this->_yPos = newCoord.y;
 
 	this->_count++;
 	return newCoord;
@@ -70,7 +71,8 @@ Coord	Boss::BossCanon::move()
 		newCoord.x -= 1;
 	this->_count++;
 
-	this->AEntity::_move(newCoord);
+	this->_xPos = newCoord.x;
+	this->_yPos = newCoord.y;
 
 	return newCoord;
 }

@@ -1,6 +1,7 @@
 #ifndef RENDERER_HPP
 # define RENDERER_HPP
 
+# include <string>
 # include <ncurses.h>
 # include "KeyEvent.hpp"
 # include "AEntity.hpp"

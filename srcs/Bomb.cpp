@@ -22,9 +22,9 @@ Bomb  &Bomb::operator=(Bomb const &rhs)
 
 Coord 	Bomb::move()
 {
-	Coord	result = { this->getXPos(), this->getYPos() };
 	if (this->_count++ % 5 == 0)
-		result.y++;
-	this->_move(result);
+		this->_yPos++;
+
+	Coord result = { this->getXPos(), this->getYPos() };
 	return result;
 }

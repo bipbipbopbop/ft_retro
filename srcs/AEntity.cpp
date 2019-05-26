@@ -5,7 +5,7 @@ AEntity::AEntity()
 {}
 
 AEntity::AEntity(unsigned int hp, unsigned int xPos, unsigned int yPos, char form, int color, bool direction, unsigned int attackDamage, unsigned int speed)
-	: _isBoss(false), _hp(hp), _xPos(xPos), _yPos(yPos), _form(form), _color(color), _direction(direction), _attackDamage(attackDamage), _speed(speed)
+	: _isBoss(false), _xPos(xPos), _yPos(yPos), _hp(hp), _form(form), _color(color), _direction(direction), _attackDamage(attackDamage), _speed(speed)
 {}
 
 AEntity::AEntity(AEntity const &src)
@@ -33,12 +33,13 @@ AEntity  &AEntity::operator=(AEntity const &rhs)
 
 Coord	AEntity::move()
 {
-	Coord	result = { this->getXPos(), this->getYPos() };
-	result.x += (this->getDirection() ? -1 : 1) * this->_speed;
+	Coord	newCoord = { this->getXPos(), this->getYPos() };
+	newCoord.x += (this->getDirection() ? -1 : 1) * this->_speed;
 
-	this->_move(result);
+	this->_xPos = newCoord.x;
+	this->_yPos = newCoord.y;
 
-	return result;
+	return newCoord;
 }
 
 void	AEntity::takeDamage(int damage)
@@ -90,13 +91,6 @@ unsigned int	AEntity::getHp() const
 bool			AEntity::isBoss() const
 {
 	return this->_isBoss;
-}
-
-//implementation defined movement & update values
-void	AEntity::_move(Coord &newCoord)
-{
-	this->_xPos = newCoord.x;
-	this->_yPos = newCoord.y;
 }
 
 AEntity * AEntity::shoot()

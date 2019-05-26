@@ -22,23 +22,17 @@ Bomber  &Bomber::operator=(Bomber const &rhs)
 
 Coord Bomber::move()
 {
-	Coord	result = { this->getXPos(), this->getYPos() };
-
-	this->_move(result);
-
-	return result;
-}
-
-void	Bomber::_move(Coord &newCoord)
-{
 	static int fram = 0;
+	Coord	newCoord = { this->getXPos(), this->getYPos() };
 
-	if (fram % 3 == 0)
+	if (!(fram % 3))
 	{
 		newCoord.x += (this->getDirection() ? -1 : 1) * this->getSpeed();
-		AEntity::_move(newCoord);
+		this->_xPos = newCoord.x;
+		this->_yPos = newCoord.y;
 	}
-	return;
+
+	return newCoord;
 }
 
 AEntity *Bomber::shoot()

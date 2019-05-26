@@ -21,16 +21,12 @@ Player  &Player::operator=(Player const &rhs)
 
 void		Player::moveVertical(int y)
 {
-	Coord		newCoord = { this->getXPos(), y };
-
-	this->_move(newCoord);
+	this->_yPos = y;
 }
 
 void		Player::moveHorizontal(int x)
 {
-	Coord		newCoord = { x, this->getYPos() };
-
-	this->_move(newCoord);
+	this->_xPos = x;
 }
 
 int			Player::getScore()

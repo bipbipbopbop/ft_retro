@@ -22,35 +22,25 @@ Invader  &Invader::operator=(Invader const &rhs)
 
 Coord Invader::move()
 {
-	Coord	result = { this->getXPos(), this->getYPos() };
-
-	this->_move(result);
-
-	return result;
-}
-
-void	Invader::_move(Coord &newCoord)
-{
+	Coord	newCoord = { this->getXPos(), this->getYPos() };
 	static int fram = 0;
 	unsigned int direction_vertical = rand() % 2;
 
-	if (fram % 3 == 0)
+	if (!(fram % 3))
 		newCoord.x += (this->getDirection() ? -1 : 1) * this->getSpeed();
-		
-	if (fram++ % 10 != 5)
+
+	if (!(fram++ % 10))
 	{
-		AEntity::_move(newCoord);
-		return;
-	} else {
 		if (direction_vertical && newCoord.y < FT_LINES)
-		{
 			newCoord.y += 1;
-		}
-		if (!direction_vertical && newCoord.y > 0)
+		else if (!direction_vertical && newCoord.y > 0)
 			newCoord.y -= 1;
-		AEntity::_move(newCoord);
 	}
-	return;
+
+	this->_xPos = newCoord.x;
+	this->_yPos = newCoord.y;
+
+	return newCoord;
 }
 
 AEntity *Invader::shoot()

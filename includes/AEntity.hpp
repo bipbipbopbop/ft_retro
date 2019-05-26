@@ -2,7 +2,6 @@
 # define AENTITY_HPP
 
 # include "IEntity.hpp"
-# include <iostream>
 # include "ft_retro.hpp"
 
 class AEntity : public IEntity
@@ -32,20 +31,16 @@ public:
 
 protected:
 	bool			_isBoss;
-
-private:
-
-	unsigned int	_hp;
 	unsigned int	_xPos;
 	unsigned int	_yPos;
+
+private:
+	unsigned int	_hp;
 	char			_form;
 	int				_color;
 	bool			_direction;//true == left, false == right
 	unsigned int	_attackDamage;
 	unsigned int	_speed;
-
-protected:
-	virtual void	_move(Coord &newCoord);//implementation defined movement
 };
 
 #endif // AENTITY_HPP
