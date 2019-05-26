@@ -14,7 +14,6 @@ TimeLapse::TimeLapse(TimeLapse const &src)
 TimeLapse::~TimeLapse()
 {}
 
-
 TimeLapse  &TimeLapse::operator=(TimeLapse const &rhs)
 {
 	this->_elapsedTime = rhs._elapsedTime;
@@ -23,7 +22,6 @@ TimeLapse  &TimeLapse::operator=(TimeLapse const &rhs)
 
 	return *this;
 }
-
 
 void		TimeLapse::start()
 {
@@ -54,7 +52,6 @@ bool		TimeLapse::checkTotalTime(double seconds) const
 	return this->_totalTime >= seconds;
 }
 
-
 //I would LOVE to use std::chrono, but it's C++11
 double		TimeLapse::_getTime() const
 {
@@ -62,4 +59,9 @@ double		TimeLapse::_getTime() const
 
     clock_gettime(CLOCK_MONOTONIC, &time);
     return (double)time.tv_sec + 0.000000001 * (double)time.tv_nsec;
+}
+
+double		TimeLapse::getTotalTime() const
+{
+	return this->_totalTime;
 }

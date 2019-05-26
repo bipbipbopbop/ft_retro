@@ -16,11 +16,13 @@ public:
 
 	KeyEvent	retrieveEvent() const;
 	void		render() const;
-	void	replaceEntity(AEntity *entity);
-	//TODO :replaceEntity pour entity avec plusieurs char
+	void		replaceEntity(AEntity *entity);
+	void		putScoreObject(int x, int y, int score);
+	void		putString(int x, int y, std::string str);
 
 	unsigned int		getLineNb() const;
 	unsigned int		getColumnNb() const;
+	WINDOW				*getWindow() const;
 
 
 private:

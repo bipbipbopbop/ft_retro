@@ -81,3 +81,18 @@ unsigned int		Renderer::getColumnNb() const
 {
 	return this->_column;
 }
+
+WINDOW*				Renderer::getWindow() const
+{
+	return this->_window;
+}
+
+void				Renderer::putScoreObject(int x, int y, int score)
+{
+	mvwprintw(this->_window, y, x, std::to_string(score).c_str());
+}
+
+void				Renderer::putString(int x, int y, std::string str)
+{
+	mvwprintw(this->_window, y, x, str.c_str());
+}

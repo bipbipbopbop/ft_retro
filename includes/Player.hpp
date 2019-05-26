@@ -14,6 +14,11 @@ public:
 
 	void		moveVertical(int y);
 	void		moveHorizontal(int x);
+	int			getScore();
+	void		setScore(int i);
+
+private:
+	int			_score;
 };
 
 #endif // ASPACESHIP_HPP

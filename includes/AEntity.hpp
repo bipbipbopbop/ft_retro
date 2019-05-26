@@ -25,6 +25,7 @@ public:
 	bool			getDirection() const;
 	unsigned int	getAttackDamage() const;
 	unsigned int	getSpeed() const;
+	unsigned int	getHp() const;
 	virtual AEntity 	*shoot();
 
 private:

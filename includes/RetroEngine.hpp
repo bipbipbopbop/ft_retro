@@ -30,6 +30,8 @@ private:
 	void		_pushMeteorite();
 	void		_pushInvader();
 	void		_makeShoot();
+	void		_putHp();
+	void		_putScore();
 
 	Renderer		_renderer;
 	EntityList		_entityList;

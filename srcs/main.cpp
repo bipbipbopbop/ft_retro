@@ -16,9 +16,9 @@ int		main(void)
 	Rocket rocket(10, 10, true);
 	Meteorite meteorite(4, 4);
 	Invader invader(7, 0);
-	//ft_retro.addEntity(new Rocket(rocket));
-	//ft_retro.addEntity(new Meteorite(meteorite));
-	//ft_retro.addEntity(new Invader(invader));
+
+	std::string t;
+	t = "Time= ";
 
 	timer.start();
 	while (true)
@@ -47,6 +47,7 @@ int		main(void)
 			//display all entities and render frame
 			ft_retro.handleKeyEvent(key);
 			ft_retro.renderFrame();
+			mvwprintw(stdscr, FT_LINES, 30, (t + std::to_string((int)timer.getTotalTime()) + "s").c_str());
 			isEntitiesUpdated = false;
 			isKeyRetrieve = false;
 		}

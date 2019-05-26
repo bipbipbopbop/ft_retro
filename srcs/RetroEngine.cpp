@@ -81,22 +81,50 @@ void		RetroEngine::updateEntities()
 		{
 			EntityList::iterator	tmp = it++;
 			delete this->_entityList.pop(tmp);
-			continue;
+	 		continue;
 		}
-		for (EntityList::iterator it2 = this->_entityList.begin(); it2 != this->_entityList.end(); ++it2)
+		EntityList::iterator it2 = this->_entityList.begin();
+		while (it2 != this->_entityList.end())
 		{
-			//		if ((*it)->checkCollision(*it2))
-			//			(*it)->handleCollision(*it2);
+			if ((*it) != (*it2))
+			{
+				if ((*it)->getXPos() == (*it2)->getXPos() && (*it)->getYPos() == (*it2)->getYPos())
+				{
+					(*it)->takeDamage((*it2)->getAttackDamage());
+					(*it2)->takeDamage((*it)->getAttackDamage());
+					this->_player.setScore(this->_player.getAttackDamage());
+					this->_renderer.putScoreObject((*it)->getXPos(), (*it)->getYPos() - 1, this->_player.getAttackDamage());
+				}
+
+				if ((*it2)->getHp() == 0)
+				{
+					EntityList::iterator tmp = it2++;
+					delete this->_entityList.pop(tmp);
+					continue;
+				}
+			}
+			it2++;
+		}
+		if (this->_player.getXPos() == (*it)->getXPos() && this->_player.getYPos() == (*it)->getYPos())
+		{
+			this->_player.takeDamage((*it)->getAttackDamage());
+			this->_player.setScore(-(*it)->getAttackDamage());
+			(*it)->takeDamage(this->_player.getAttackDamage());
+			this->_renderer.putScoreObject(this->_player.getXPos(), this->_player.getYPos() - 1, -(*it)->getAttackDamage());
+		}
+		if ((*it)->getHp() == 0)
+		{
+			EntityList::iterator tmp = it++;
+			delete this->_entityList.pop(tmp);
+			continue;
 		}
 		it++;
 	}
 	this->_makeShoot();
-
 	this->_pushMeteorite();
 	this->_pushInvader();
-
-	// pop new entities
-
+	this->_putHp();
+	this->_putScore();
 }
 
 void		RetroEngine::_makeShoot()
@@ -110,6 +138,22 @@ void		RetroEngine::_makeShoot()
 		}
 	}
 
+}
+
+void		RetroEngine::_putHp()
+{
+	std::string str;
+
+	str = "HP= " + std::to_string(this->_player.getHp());
+	this->_renderer.putString(0, FT_LINES, str);
+}
+
+void		RetroEngine::_putScore()
+{
+	std::string str;
+
+	str = "Score= " + std::to_string(this->_player.getScore());
+	this->_renderer.putString(10, FT_LINES, str);
 }
 
 void		RetroEngine::_pushMeteorite()

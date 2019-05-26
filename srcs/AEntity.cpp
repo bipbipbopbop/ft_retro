@@ -82,6 +82,11 @@ unsigned int	AEntity::getSpeed() const
 	return this->_speed;
 }
 
+unsigned int	AEntity::getHp() const
+{
+	return this->_hp;
+}
+
 //implementation defined movement & update values
 void	AEntity::_move(Coord &newCoord)
 {

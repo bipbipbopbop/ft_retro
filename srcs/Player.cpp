@@ -1,7 +1,7 @@
 #include "Player.hpp"
 
 Player::Player()
-	: ASpaceShip(100, 0, 12, '>', 12, false, 10, 1)
+	: ASpaceShip(100, 0, 12, '>', 12, false, 10, 1), _score(0)
 {}
 
 Player::Player(Player const &src)
@@ -31,4 +31,14 @@ void		Player::moveHorizontal(int x)
 	Coord		newCoord = { x, this->getYPos() };
 
 	this->_move(newCoord);
+}
+
+int			Player::getScore()
+{
+	return this->_score;
+}
+
+void		Player::setScore(int i)
+{
+	this->_score += i;
 }

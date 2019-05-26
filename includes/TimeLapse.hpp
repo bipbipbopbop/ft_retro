@@ -14,9 +14,10 @@ public:
 	void		update();
 	bool		checkTime(double seconds);
 	bool		checkTotalTime(double seconds) const;
+	double		getTotalTime() const;
+
 private:
 	double		_getTime() const;
-
 	double		_elapsedTime;
 	double		_totalTime;
 	double		_lastTime;
