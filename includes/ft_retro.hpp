@@ -9,7 +9,6 @@
 # define FT_COLUMNS 100
 # define FT_FRAMERATE	30
 # define FT_TIMELAPSE	(1. / FT_FRAMERATE)
-# define FT_MAX_ENEMY 15
 
 # define FT_RED 1
 # define FT_GREEN 2 
