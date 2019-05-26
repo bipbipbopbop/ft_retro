@@ -2,7 +2,7 @@
 
 
 Meteorite::Meteorite(unsigned int xPos, unsigned int yPos)
-	: AEntity(10, xPos, yPos, 'x', 10, true, 10, 1)
+	: AEntity(1, xPos, yPos, 'x', 10, true, 10, 1)
 {}
 
 Meteorite::Meteorite(Meteorite const &src)

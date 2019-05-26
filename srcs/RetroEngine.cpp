@@ -93,7 +93,7 @@ void		RetroEngine::updateEntities()
 					(*it)->takeDamage((*it2)->getAttackDamage());
 					(*it2)->takeDamage((*it)->getAttackDamage());
 					this->_player.setScore(this->_player.getAttackDamage());
-					this->_renderer.putScoreObject((*it)->getXPos(), (*it)->getYPos() - 1, this->_player.getAttackDamage());
+					this->_renderer.putScoreObject((*it)->getXPos(), (*it)->getYPos() - 1, 20);
 				}
 
 				if ((*it2)->getHp() == 0)

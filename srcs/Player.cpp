@@ -1,7 +1,7 @@
 #include "Player.hpp"
 
 Player::Player()
-	: ASpaceShip(100, 0, 12, '>', 12, false, 10, 1), _score(0)
+	: ASpaceShip(100, 0, 12, '>', 12, false, 100, 1), _score(0)
 {}
 
 Player::Player(Player const &src)
