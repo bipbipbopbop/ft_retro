@@ -88,3 +88,8 @@ void	AEntity::_move(Coord &newCoord)
 	this->_xPos = newCoord.x;
 	this->_yPos = newCoord.y;
 }
+
+AEntity * AEntity::shoot()
+{
+	return NULL;
+}

@@ -1,4 +1,5 @@
 #include "RetroEngine.hpp"
+#include "TimeLapse.hpp"
 
 
 RetroEngine::RetroEngine()
@@ -80,23 +81,63 @@ void		RetroEngine::updateEntities()
 		{
 			EntityList::iterator	tmp = it++;
 			delete this->_entityList.pop(tmp);
+			continue;
 		}
-		else
+		for (EntityList::iterator it2 = this->_entityList.begin(); it2 != this->_entityList.end(); ++it2)
 		{
-			// is their any colision ?
-			for (EntityList::iterator it2 = this->_entityList.begin(); it2 != it; ++it2)
-			{
-				//		if ((*it)->checkCollision(*it2))
-				//			(*it)->handleCollision(*it2);
-			}
-			//if ((*it)->checkCollision(&this->_player))
-			//	(*it)->handleCollision(&this->_player);
-			++it;
+			//		if ((*it)->checkCollision(*it2))
+			//			(*it)->handleCollision(*it2);
 		}
+		it++;
 	}
+	this->_makeShoot();
+
+	this->_pushMeteorite();
+	this->_pushInvader();
 
 	// pop new entities
 
+}
+
+void		RetroEngine::_makeShoot()
+{
+	for (EntityList::iterator it = this->_entityList.begin(); it != this->_entityList.end(); ++it)
+	{
+		AEntity *tmp = (*it)->shoot();
+		if (tmp != NULL)
+		{
+			this->_entityList.push(tmp);
+		}
+	}
+
+}
+
+void		RetroEngine::_pushMeteorite()
+{
+	static TimeLapse timer;
+	int y;
+
+	y = rand() % 18 + 3;
+	timer.update();
+
+	if (timer.checkTime(FT_TIMELAPSE * 20.42))
+	{
+		this->_entityList.push(new Meteorite(this->_renderer.getColumnNb(), y));
+	}
+}
+
+void		RetroEngine::_pushInvader()
+{
+	static TimeLapse timer;
+	int y;
+
+	y = rand() % 18 + 3;
+	timer.update();
+
+	if (timer.checkTime(FT_TIMELAPSE * 47.73))
+	{
+		this->_entityList.push(new Invader(this->_renderer.getColumnNb(), y));
+	}
 }
 
 void		RetroEngine::addEntity(AEntity *entity)
@@ -108,7 +149,7 @@ void		RetroEngine::_updatePlayerPos(int direction)
 {
 	int		currentY = this->_player.getYPos();
 	int		currentX = this->_player.getXPos();
-	
+
 
 	if (FT_UP == direction && (currentY - 1) > 0)
 	{

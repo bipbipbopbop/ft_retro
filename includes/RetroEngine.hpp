@@ -27,6 +27,9 @@ public:
 
 private:
 	void		_updatePlayerPos(int x);
+	void		_pushMeteorite();
+	void		_pushInvader();
+	void		_makeShoot();
 
 	Renderer		_renderer;
 	EntityList		_entityList;

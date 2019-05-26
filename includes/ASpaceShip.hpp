@@ -13,7 +13,7 @@ public:
 
 	ASpaceShip  &operator=(ASpaceShip const &rhs);
 
-	Rocket		*shoot();
+	virtual AEntity		*shoot();
 };
 
 #endif // ASPACESHIP_HPP

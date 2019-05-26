@@ -3,7 +3,7 @@
 
 # include "IEntity.hpp"
 # include <iostream>
-# include "ft_retro.h"
+# include "ft_retro.hpp"
 
 class AEntity : public IEntity
 {
@@ -25,6 +25,7 @@ public:
 	bool			getDirection() const;
 	unsigned int	getAttackDamage() const;
 	unsigned int	getSpeed() const;
+	virtual AEntity 	*shoot();
 
 private:
 

@@ -20,7 +20,7 @@ ASpaceShip  &ASpaceShip::operator=(ASpaceShip const &rhs)
 	return *this;
 }
 
-Rocket		*ASpaceShip::shoot()
+AEntity		*ASpaceShip::shoot()
 {
 	Rocket	*result = new Rocket(this->getXPos() + (this->getDirection() ? -1 : 1), this->getYPos(), this->getDirection());
 

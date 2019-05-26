@@ -2,7 +2,7 @@
 
 
 Rocket::Rocket(unsigned int xPos, unsigned int yPos, bool direction)
-	: AEntity(1, xPos, yPos, '-', 11, direction, 20, 2)
+	: AEntity(1, xPos, yPos, '-', 11, direction, 20, 1)
 {}
 
 Rocket::Rocket(Rocket const &src)
