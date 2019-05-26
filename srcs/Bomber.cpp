@@ -1,7 +1,7 @@
 #include "Bomber.hpp"
 
 Bomber::Bomber(unsigned int xPos, unsigned int yPos)
-	: ASpaceShip(10, xPos, yPos, '8', 14, true, 100, 1), _randShoot(rand())
+	: ASpaceShip(10, xPos, yPos, '8', FT_CYAN, true, 100, 1), _randShoot(rand())
 {}
 
 	Bomber::Bomber(Bomber const &src)

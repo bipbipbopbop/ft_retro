@@ -11,6 +11,8 @@
 # define FT_GREEN 2 
 # define FT_YELLOW 3
 # define FT_BLUE 4
-# define FT_WHITE 11
+# define FT_WHITE 5
+# define FT_PINK 6
+# define FT_CYAN 7
 
 #endif // FT_RETRO_HPP

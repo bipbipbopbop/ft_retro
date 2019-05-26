@@ -2,7 +2,7 @@
 
 
 Bomb::Bomb(unsigned int xPos, unsigned int yPos, bool direction)
-	: AEntity(80, xPos, yPos, 'o', 11, direction, 20, 1)
+	: AEntity(80, xPos, yPos, 'o', FT_RED, direction, 20, 1)
 {}
 
 Bomb::Bomb(Bomb const &src)

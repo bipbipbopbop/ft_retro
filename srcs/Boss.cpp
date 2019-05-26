@@ -2,7 +2,7 @@
 
 
 Boss::BossBody::BossBody(unsigned int hp, unsigned int xPos, unsigned int yPos, char form)
-	: AEntity(hp, xPos, yPos, form, FT_WHITE, true, 1, 1), _count(5)
+	: AEntity(hp, xPos, yPos, form, FT_PINK, true, 1, 1), _count(5)
 {}
 
 Boss::BossBody::BossBody(BossBody const &src)

@@ -1,7 +1,7 @@
 #include "Invader.hpp"
 
 Invader::Invader(unsigned int xPos, unsigned int yPos)
-	: ASpaceShip(40, xPos, yPos, '#', 14, true, 100, 1), _randShoot(rand())
+	: ASpaceShip(40, xPos, yPos, '<', FT_WHITE, true, 100, 1), _randShoot(rand())
 {}
 
 	Invader::Invader(Invader const &src)
