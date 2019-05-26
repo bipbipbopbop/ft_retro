@@ -18,3 +18,16 @@ Invader  &Invader::operator=(Invader const &rhs)
 	this->ASpaceShip::operator=(rhs);
 	return *this;
 }
+
+void	Invader::_move(Coord &newCoord)
+{
+	unsigned int direction_vertical = rand() % 2;
+
+	if (direction_vertical && newCoord.y < FT_LINES)
+	{
+		newCoord.y += 1;
+	}
+	if (!direction_vertical && newCoord.y > 0)
+		newCoord.y -= 1;
+	AEntity::_move(newCoord);
+}

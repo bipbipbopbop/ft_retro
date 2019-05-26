@@ -2,6 +2,8 @@
 # define AENTITY_HPP
 
 # include "IEntity.hpp"
+# include <iostream>
+# include "ft_retro.h"
 
 class AEntity : public IEntity
 {
