@@ -138,7 +138,10 @@ bool		RetroEngine::updateEntities()
 		// & Collision check with Player
 		this->_checkCollisionEntities(it);
 		if (!(this->_checkCollisionPlayer(it)))
+		{
+			this->_putHp();
 			return false;// Player is dead!
+		}
 
 		// Is it dead ?
 		if ((*it)->getHp() == 0)
@@ -187,24 +190,40 @@ void		RetroEngine::_putScore()
 
 void		RetroEngine::_pushMeteorite()
 {
-	static TimeLapse timer;
-	int y;
+	static TimeLapse meteoriteTimer;
+	int	timeMul = 22.42 / ((meteoriteTimer.getTotalTime()/ 45.) + 1.);
+	int	y;
 
 	y = rand() % 16 + 5;// rand value between 5 and 20
-	timer.update();
+	meteoriteTimer.update();
 
-	if (timer.checkTime(FT_TIMELAPSE * 20.42))
+	if (meteoriteTimer.checkTime(FT_TIMELAPSE * timeMul))
 		this->_entityList.push(new Meteorite(this->_renderer.getColumnNb(), y));
 }
 
 void		RetroEngine::_pushInvader()
 {
-	static TimeLapse invaderTimer;
+	static TimeLapse	invaderTimer;
+	int			timeMul = 45.73 / ((invaderTimer.getTotalTime()/ 45.) + 1.);
 	int y = rand() % 16 + 5;// rand value between 5 and 20
 
 	invaderTimer.update();
-	if (invaderTimer.checkTime(FT_TIMELAPSE * 47.73))
+	if (invaderTimer.checkTime(FT_TIMELAPSE * timeMul))
 		this->_entityList.push(new Invader(this->_renderer.getColumnNb(), y));
+}
+
+void		RetroEngine::_pushBomber()
+{
+	static TimeLapse	bomberTimer;
+	int	timeMul = 180.73 / ((bomberTimer.getTotalTime()/ 90.) + 1.);
+	int	y;
+
+	y = rand() % 5;
+	bomberTimer.update();
+	if (bomberTimer.checkTime(FT_TIMELAPSE * timeMul))
+	{
+		this->_entityList.push(new Bomber(this->_renderer.getColumnNb(), y));
+	}
 }
 
 void		RetroEngine::_pushBoss()
@@ -215,22 +234,9 @@ void		RetroEngine::_pushBoss()
 	bossTimer.update();
 	if (bossTimer.checkTime(bossDelay))
 	{
-		this->_entityList.push(new Boss(1000, FT_COLUMNS, FT_LINES / 2));
-		if (bossDelay > 10.)
+		this->_entityList.push(new Boss(1150, FT_COLUMNS, FT_LINES / 2));
+		if (bossDelay > 11.)
 			bossDelay -= 5.;
-	}
-}
-
-void		RetroEngine::_pushBomber()
-{
-	static TimeLapse bomberTimer;
-	int y;
-
-	y = rand() % 5;
-	bomberTimer.update();
-	if (bomberTimer.checkTime(FT_TIMELAPSE * 47.73))
-	{
-		this->_entityList.push(new Bomber(this->_renderer.getColumnNb(), y));
 	}
 }
 
