@@ -14,6 +14,7 @@
 # define FT_GREEN 2 
 # define FT_YELLOW 3
 # define FT_BLUE 4
+# define FT_WHITE 11
 
 # define FT_UP 0
 # define FT_DOWN 1

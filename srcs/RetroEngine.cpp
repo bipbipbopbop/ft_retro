@@ -62,7 +62,14 @@ void		RetroEngine::renderFrame()
 
 	for (EntityList::iterator it = this->_entityList.begin(); it != this->_entityList.end(); ++it)
 	{
-		this->_renderer.replaceEntity(*it);
+		if (!(*it)->isBoss())
+			this->_renderer.replaceEntity(*it);
+		else
+		{
+			Boss	*boss = dynamic_cast<Boss *>((*it));
+			for (EntityList::iterator bossIt = boss->begin(); bossIt != boss->end(); ++bossIt)
+				this->_renderer.replaceEntity(*bossIt);
+		}
 	}
 	this->_renderer.replaceEntity(&this->_player);
 	this->_renderer.render();
@@ -175,16 +182,22 @@ void		RetroEngine::_pushMeteorite()
 
 void		RetroEngine::_pushInvader()
 {
-	static TimeLapse timer;
-	int y;
+	static TimeLapse invaderTimer;
+	static TimeLapse bossTimer;
+	static double	bossDelay = 60.;
+	int y = rand() % 18 + 3;
 
-	y = rand() % 18 + 3;
-	timer.update();
+	invaderTimer.update();
+	bossTimer.update();
 
-	if (timer.checkTime(FT_TIMELAPSE * 47.73))
+	if (bossTimer.checkTime(bossDelay))
 	{
-		this->_entityList.push(new Invader(this->_renderer.getColumnNb(), y));
+		this->_entityList.push(new Boss(1000, FT_COLUMNS, FT_LINES / 2));
+		if (bossDelay > 10.)
+			bossDelay -= 5.;
 	}
+	else if (invaderTimer.checkTime(FT_TIMELAPSE * 47.73))
+		this->_entityList.push(new Invader(this->_renderer.getColumnNb(), y));
 }
 
 void		RetroEngine::_pushBomber()

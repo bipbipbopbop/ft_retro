@@ -63,12 +63,10 @@ void	Renderer::replaceEntity(AEntity *entity)
 
 	mvwprintw(this->_window, (int)entity->getYPos(), (int)entity->getXPos(), entityChar.c_str());
 }
-//TODO :placeEntity pour entity avec plusieurs char
 
 
 void	Renderer::render() const
 {
-	//clearok(this->_window, true);//it do not work ?
 	refresh();
 }
 

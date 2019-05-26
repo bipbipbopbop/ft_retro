@@ -33,7 +33,8 @@ SRCS_NAMES :=	main.cpp						\
 				RetroEngine.cpp					\
 				Bomber.cpp						\
 				Bomb.cpp						\
-				TimeLapse.cpp
+				TimeLapse.cpp					\
+				Boss.cpp
 
 
 SRCS := $(addprefix $(SRC_PATH)/,$(SRCS_NAMES))
@@ -55,8 +56,9 @@ INCS :=	Renderer.hpp			\
 		RetroEngine.hpp			\
 		TimeLapse.hpp			\
 		Bomber.hpp				\
-		Bomb.hpp						\
-		ft_retro.hpp
+		Bomb.hpp				\
+		ft_retro.hpp			\
+		Boss.hpp
 
 
 # THE NORM IS REAL

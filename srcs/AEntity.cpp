@@ -5,7 +5,7 @@ AEntity::AEntity()
 {}
 
 AEntity::AEntity(unsigned int hp, unsigned int xPos, unsigned int yPos, char form, int color, bool direction, unsigned int attackDamage, unsigned int speed)
-	: _hp(hp), _xPos(xPos), _yPos(yPos), _form(form), _color(color), _direction(direction), _attackDamage(attackDamage), _speed(speed)
+	: _isBoss(false), _hp(hp), _xPos(xPos), _yPos(yPos), _form(form), _color(color), _direction(direction), _attackDamage(attackDamage), _speed(speed)
 {}
 
 AEntity::AEntity(AEntity const &src)
@@ -85,6 +85,11 @@ unsigned int	AEntity::getSpeed() const
 unsigned int	AEntity::getHp() const
 {
 	return this->_hp;
+}
+
+bool			AEntity::isBoss() const
+{
+	return this->_isBoss;
 }
 
 //implementation defined movement & update values

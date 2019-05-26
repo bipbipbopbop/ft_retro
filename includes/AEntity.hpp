@@ -26,7 +26,12 @@ public:
 	unsigned int	getAttackDamage() const;
 	unsigned int	getSpeed() const;
 	unsigned int	getHp() const;
+	bool			isBoss() const;
 	virtual AEntity 	*shoot();
+
+
+protected:
+	bool			_isBoss;
 
 private:
 

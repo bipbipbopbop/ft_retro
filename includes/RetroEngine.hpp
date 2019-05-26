@@ -10,6 +10,8 @@
 # include "Bomber.hpp"
 # include "EntityList.hpp"
 # include "Bomb.hpp"
+# include "EntityList.hpp"
+# include "Boss.hpp"
 
 class RetroEngine
 {
